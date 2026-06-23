@@ -1,6 +1,6 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
@@ -8,18 +8,21 @@ from django_filters.rest_framework import DjangoFilterBackend
 from vuelos.models import Reserva
 from vuelos.serializers import ReservaSerializer
 from vuelos.pagination import StandardPagination
-from vuelos.permissions import EsStaffOSoloLectura
 from vuelos.filters import ReservaFilter
 
 
 class ReservaViewSet(viewsets.ModelViewSet):
     queryset           = Reserva.objects.select_related('vuelo', 'pasajero').all()
     serializer_class   = ReservaSerializer
-    permission_classes = [EsStaffOSoloLectura]
     pagination_class   = StandardPagination
     filter_backends    = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class    = ReservaFilter
     ordering_fields    = ['fecha_reserva', 'estado']
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve', 'create']:
+            return [IsAuthenticated()]
+        return [IsAdminUser()]
 
     @action(detail=True, methods=['post'],
             permission_classes=[IsAuthenticated], url_path='cancelar')
