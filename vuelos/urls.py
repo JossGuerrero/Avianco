@@ -25,6 +25,11 @@ from vuelos.views.notificacion        import NotificacionViewSet
 from vuelos.views.metodo_pago         import MetodoPagoViewSet
 from vuelos.views.pago                import PagoViewSet
 from vuelos.views.promocion           import PromocionViewSet
+from vuelos.views.aerolinea           import AerolineaViewSet
+from vuelos.views.asiento             import AsientoViewSet
+from vuelos.views.checkin             import CheckInViewSet
+from vuelos.views.servicio            import ServicioViewSet, ReservaServicioViewSet
+from vuelos.views.factura             import FacturaViewSet
 from vuelos.serializers.auth          import CustomTokenView
 
 router = DefaultRouter()
@@ -49,6 +54,12 @@ router.register('notificaciones',       NotificacionViewSet,          basename='
 router.register('metodos-pago',         MetodoPagoViewSet,            basename='metodo-pago')
 router.register('pagos',                PagoViewSet,                  basename='pago')
 router.register('promociones',          PromocionViewSet,             basename='promocion')
+router.register('aerolineas',           AerolineaViewSet,             basename='aerolinea')
+router.register('asientos',             AsientoViewSet,               basename='asiento')
+router.register('checkins',             CheckInViewSet,               basename='checkin')
+router.register('servicios',            ServicioViewSet,              basename='servicio')
+router.register('reserva-servicios',    ReservaServicioViewSet,       basename='reserva-servicio')
+router.register('facturas',             FacturaViewSet,               basename='factura')
 
 urlpatterns = [
     path('health/',             health_check),

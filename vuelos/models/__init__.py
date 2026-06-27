@@ -18,3 +18,8 @@ from .notificacion          import Notificacion
 from .metodo_pago           import MetodoPago
 from .pago                  import Pago
 from .promocion             import Promocion
+from .aerolinea             import Aerolinea
+from .asiento               import Asiento
+from .checkin               import CheckIn
+from .servicio              import Servicio, ReservaServicio
+from .factura               import Factura

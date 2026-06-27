@@ -18,3 +18,8 @@ from .notificacion           import NotificacionViewSet
 from .metodo_pago            import MetodoPagoViewSet
 from .pago                   import PagoViewSet
 from .promocion              import PromocionViewSet
+from .aerolinea              import AerolineaViewSet
+from .asiento                import AsientoViewSet
+from .checkin                import CheckInViewSet
+from .servicio               import ServicioViewSet, ReservaServicioViewSet
+from .factura                import FacturaViewSet

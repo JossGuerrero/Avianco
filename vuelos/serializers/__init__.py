@@ -20,3 +20,8 @@ from .notificacion           import NotificacionSerializer
 from .metodo_pago            import MetodoPagoSerializer
 from .pago                   import PagoSerializer
 from .promocion              import PromocionSerializer
+from .aerolinea              import AerolineaSerializer
+from .asiento                import AsientoSerializer
+from .checkin                import CheckInSerializer
+from .servicio               import ServicioSerializer, ReservaServicioSerializer
+from .factura                import FacturaSerializer
