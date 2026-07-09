@@ -4,12 +4,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from vuelos.models import Promocion
 from vuelos.serializers import PromocionSerializer
 from vuelos.pagination import StandardPagination
-from vuelos.permissions import EsStaffOSoloLectura
+from vuelos.permissions import LecturaPublicaEscrituraStaff
 
 class PromocionViewSet(viewsets.ModelViewSet):
     queryset           = Promocion.objects.all()
     serializer_class   = PromocionSerializer
-    permission_classes = [EsStaffOSoloLectura]
+    permission_classes = [LecturaPublicaEscrituraStaff]
     pagination_class   = StandardPagination
     filter_backends    = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields   = ['activa']

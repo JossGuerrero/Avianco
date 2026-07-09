@@ -9,14 +9,14 @@ from django.db.models import Avg, Max, Min, Count
 from vuelos.models import Vuelo
 from vuelos.serializers import VueloSerializer
 from vuelos.pagination import StandardPagination
-from vuelos.permissions import EsStaffOSoloLectura
+from vuelos.permissions import EsStaffOSoloLectura, LecturaPublicaEscrituraStaff
 from vuelos.filters import VueloFilter
 
 
 class VueloViewSet(viewsets.ModelViewSet):
     queryset           = Vuelo.objects.select_related('origen', 'destino', 'aeronave').all()
     serializer_class   = VueloSerializer
-    permission_classes = [EsStaffOSoloLectura]
+    permission_classes = [LecturaPublicaEscrituraStaff]
     pagination_class   = StandardPagination
     filter_backends    = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class    = VueloFilter
