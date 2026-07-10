@@ -4,6 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from vuelos.models import Servicio, ReservaServicio
 from vuelos.serializers.servicio import ServicioSerializer, ReservaServicioSerializer
 from vuelos.pagination import StandardPagination
+from rest_framework.permissions import IsAuthenticated
 from vuelos.permissions import EsStaffOSoloLectura
 
 
@@ -21,7 +22,7 @@ class ServicioViewSet(viewsets.ModelViewSet):
 class ReservaServicioViewSet(viewsets.ModelViewSet):
     queryset           = ReservaServicio.objects.select_related('reserva', 'servicio').all()
     serializer_class   = ReservaServicioSerializer
-    permission_classes = [EsStaffOSoloLectura]
+    permission_classes = [IsAuthenticated]
     pagination_class   = StandardPagination
     filter_backends    = [DjangoFilterBackend, OrderingFilter]
     filterset_fields   = ['reserva', 'servicio']

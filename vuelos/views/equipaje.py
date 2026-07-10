@@ -4,12 +4,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from vuelos.models import Equipaje
 from vuelos.serializers import EquipajeSerializer
 from vuelos.pagination import StandardPagination
-from vuelos.permissions import EsStaffOSoloLectura
+from rest_framework.permissions import IsAuthenticated
 
 class EquipajeViewSet(viewsets.ModelViewSet):
     queryset           = Equipaje.objects.select_related('reserva').all()
     serializer_class   = EquipajeSerializer
-    permission_classes = [EsStaffOSoloLectura]
+    permission_classes = [IsAuthenticated]
     pagination_class   = StandardPagination
     filter_backends    = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields   = ['tipo', 'reserva']
