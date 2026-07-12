@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(python manage.py check)"
+      "PowerShell(python manage.py check)",
+      "PowerShell(pip show Pillow)",
+      "PowerShell(.\\\\.venv\\\\Scripts\\\\pip.exe show Pillow)",
+      "PowerShell(python -m pip install Pillow)"
     ]
   }
 }

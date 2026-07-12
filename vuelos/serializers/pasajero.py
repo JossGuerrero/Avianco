@@ -10,7 +10,7 @@ class PasajeroSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'usuario', 'nombre_completo',
             'numero_pasaporte', 'nacionalidad',
-            'fecha_nacimiento', 'telefono',
+            'fecha_nacimiento', 'telefono', 'foto_perfil',
         ]
 
     def get_nombre_completo(self, obj):

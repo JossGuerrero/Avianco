@@ -5,6 +5,7 @@ class Aeronave(models.Model):
     matricula  = models.CharField(max_length=20, unique=True)
     modelo     = models.CharField(max_length=100)
     capacidad  = models.PositiveIntegerField()
+    foto       = models.ImageField(upload_to='aeronaves/', blank=True, null=True)
 
     class Meta:
         verbose_name        = 'Aeronave'

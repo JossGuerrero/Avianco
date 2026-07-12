@@ -6,6 +6,7 @@ class Aeropuerto(models.Model):
     nombre      = models.CharField(max_length=150)
     ciudad      = models.CharField(max_length=100)
     pais        = models.CharField(max_length=100)
+    foto        = models.ImageField(upload_to='aeropuertos/', blank=True, null=True)
 
     class Meta:
         verbose_name        = 'Aeropuerto'

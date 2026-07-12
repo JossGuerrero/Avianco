@@ -5,4 +5,4 @@ from vuelos.models import Aeropuerto
 class AeropuertoSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Aeropuerto
-        fields = ['id', 'codigo_iata', 'nombre', 'ciudad', 'pais']
+        fields = ['id', 'codigo_iata', 'nombre', 'ciudad', 'pais', 'foto']
