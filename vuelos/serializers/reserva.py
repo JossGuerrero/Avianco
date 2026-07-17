@@ -11,7 +11,9 @@ class ReservaSerializer(serializers.ModelSerializer):
     def validate(self, data):
         vuelo   = data.get('vuelo',   getattr(self.instance, 'vuelo',   None))
         asiento = data.get('asiento', getattr(self.instance, 'asiento', None))
-        qs = Reserva.objects.filter(vuelo=vuelo, asiento=asiento)
+        if not self.instance and vuelo.estado != 'programado':
+            raise serializers.ValidationError({'vuelo': 'Solo se puede reservar en vuelos programados.'})
+        qs = Reserva.objects.filter(vuelo=vuelo, asiento=asiento).exclude(estado='cancelada')
         if self.instance:
             qs = qs.exclude(pk=self.instance.pk)
         if qs.exists():

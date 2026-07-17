@@ -15,3 +15,9 @@ class FacturaViewSet(viewsets.ModelViewSet):
     filter_backends    = [DjangoFilterBackend, OrderingFilter]
     filterset_fields   = ['estado', 'reserva']
     ordering_fields    = ['-fecha']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.is_staff:
+            return qs
+        return qs.filter(reserva__pasajero__usuario=self.request.user)

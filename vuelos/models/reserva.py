@@ -20,7 +20,13 @@ class Reserva(models.Model):
         verbose_name        = 'Reserva'
         verbose_name_plural = 'Reservas'
         ordering            = ['-fecha_reserva']
-        unique_together     = [['vuelo', 'asiento']]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['vuelo', 'asiento'],
+                condition=~models.Q(estado='cancelada'),
+                name='asiento_unico_por_vuelo_activo',
+            )
+        ]
 
     def __str__(self):
         return f'Reserva #{self.pk} — {self.pasajero} en {self.vuelo}'

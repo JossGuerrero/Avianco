@@ -14,3 +14,9 @@ class NotificacionViewSet(viewsets.ModelViewSet):
     filter_backends    = [DjangoFilterBackend, OrderingFilter]
     filterset_fields   = ['usuario', 'tipo', 'leida']
     ordering_fields    = ['-fecha']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.is_staff:
+            return qs
+        return qs.filter(usuario=self.request.user)

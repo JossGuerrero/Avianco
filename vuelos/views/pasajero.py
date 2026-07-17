@@ -14,3 +14,9 @@ class PasajeroViewSet(viewsets.ModelViewSet):
     filter_backends    = [SearchFilter, OrderingFilter]
     search_fields      = ['numero_pasaporte', 'nacionalidad', 'usuario__first_name', 'usuario__last_name']
     ordering_fields    = ['usuario__last_name', 'nacionalidad']
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.is_staff:
+            return qs
+        return qs.filter(usuario=self.request.user)

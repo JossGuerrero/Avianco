@@ -24,10 +24,21 @@ class ReservaViewSet(viewsets.ModelViewSet):
             return [IsAuthenticated()]
         return [IsAdminUser()]
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.is_staff:
+            return qs
+        return qs.filter(pasajero__usuario=self.request.user)
+
     @action(detail=True, methods=['post'],
             permission_classes=[IsAuthenticated], url_path='cancelar')
     def cancelar(self, request, pk=None):
         reserva = self.get_object()
+        if not request.user.is_staff and reserva.pasajero.usuario != request.user:
+            return Response(
+                {'error': 'No tienes permiso sobre esta reserva.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
         if reserva.estado == 'cancelada':
             return Response(
                 {'error': 'La reserva ya está cancelada.'},
